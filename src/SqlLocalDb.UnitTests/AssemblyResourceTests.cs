@@ -9,13 +9,13 @@ namespace SqlLocalDb.UnitTests
         [Fact]
         public void FromAssembly_CreatesAResourceWhenAnEmbeddedResourceExistsInAssemblyWithAMatchingName()
         {
-            AssemblyResource.FromAssembly(GetType().Assembly, "TestResource.txt").ShouldNotBeNull();
+            GetType().Assembly.GetResource("TestResource.txt").ShouldNotBeNull();
         }
 
         [Fact]
         public void FromAssembly_ThrowsWhenTheEmbeddedResourceCanNotBeFound()
         {
-            Assert.Throws<ArgumentException>(() => AssemblyResource.FromAssembly(GetType().Assembly, "ResourceThatDoesNotExist"));
+            Assert.Throws<ArgumentException>(() => GetType().Assembly.GetResource("ResourceThatDoesNotExist"));
         }
     }
 }

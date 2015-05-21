@@ -5,9 +5,10 @@ using System.Reflection;
 
 namespace SqlLocalDb
 {
-    public class AssemblyResource 
+
+    public static class AssemblyExtensions
     {
-        public static AssemblyResource FromAssembly(Assembly assembly, string named)
+        public static AssemblyResource GetResource(this Assembly assembly, string named)
         {
             var resourceNames = assembly.GetManifestResourceNames().ToArray();
             var resourceName = resourceNames.FirstOrDefault(name => name.EndsWith(named, StringComparison.InvariantCultureIgnoreCase));
@@ -19,8 +20,12 @@ namespace SqlLocalDb
 
             return new AssemblyResource(assembly, resourceName);
         }
+    }
 
-        private AssemblyResource(Assembly assembly, string resourceName)
+    public class AssemblyResource 
+    {
+        
+        internal AssemblyResource(Assembly assembly, string resourceName)
         {
             Assembly = assembly;
             ResourceName = resourceName;

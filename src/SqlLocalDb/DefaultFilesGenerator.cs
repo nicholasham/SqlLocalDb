@@ -26,7 +26,7 @@ namespace SqlLocalDb
         private FileInfo SaveToDisk(string resourceName, string directoryPath, string databaseName)
         {
             var filePath = Path.Combine(directoryPath, resourceName.Replace("TestDatabase", databaseName));
-            return AssemblyResource.FromAssembly(GetType().Assembly, resourceName).SaveToDisk(filePath);
+            return GetType().Assembly.GetResource(resourceName).SaveToDisk(filePath);
         }
 
         
