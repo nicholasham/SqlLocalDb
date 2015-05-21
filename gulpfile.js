@@ -30,7 +30,8 @@ paths.projectLicenceUrl = '';
 var buildinfo = {};
 buildinfo.configuration = 'Release';
 buildinfo.number = process.env.BUILD_NUMBER || 0;
-buildinfo.version = '1.0.0.' + buildinfo.number;
+buildinfo.packageVersion = '1.0.0'
+buildinfo.version = '1.0.0' + '.' + buildinfo.number;
 
 var nuget = new Nuget({
     nugetPath: paths.nugetExeFile,
@@ -71,8 +72,8 @@ gulp.task('nuget-pack', ['nuget-restore', 'build', 'test'], function () {
     var nuspecProperties = {
         authors: 'Nicholas Hammond',
         owners: 'Nicholas Hammond',
-        licenseUrl: 'http://github.com',
-        projectUrl: 'http://github.com',
+        licenseUrl: 'https://github.com/nicholasham/SqlLocalDb/license.txt',
+        projectUrl: 'https://github.com/nicholasham/SqlLocalDb',
         iconUrl: 'http://github.com',
         requireLicenseAcceptance: false,
         releaseNotes: '',
@@ -103,7 +104,7 @@ gulp.task('nuget-pack', ['nuget-restore', 'build', 'test'], function () {
             nuget.pack({
                 spec: projectFile,
                 outputDirectory: paths.artifactsDirectory,
-                version: buildinfo.version,
+                version: buildinfo.packageVersion,
                 symbols: true,
                 includeReferencedProjects: true,
                 properties: nuspecProperties
