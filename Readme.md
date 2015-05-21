@@ -18,7 +18,7 @@ Add the appropriate namespace:
 using SqlLocalDb;
 ```
 
-Then create an instance, start it and connect to it:
+Then create an instance and just open a connection to the database:
 
 ```
 var database = new LocalDatabase();
