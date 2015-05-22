@@ -26,7 +26,7 @@ namespace SqlLocalDb
             }
         }
 
-        public static void ExecuteScriptBlock(this IDbConnection connection, string scriptBlock)
+        public static void ExecuteScript(this IDbConnection connection, string scriptBlock)
         {
             string[] splitter = { "\r\nGO\r\n" };
             var commandTexts = scriptBlock.Split(splitter, StringSplitOptions.RemoveEmptyEntries);

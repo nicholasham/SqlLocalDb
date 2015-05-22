@@ -65,6 +65,7 @@
     <Compile Include="IFilesGenerator.cs" />
     <Compile Include="IOutputDirectoryProvider.cs" />
     <Compile Include="LocalDatabase.cs" />
+    <Compile Include="LocalDatabaseExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

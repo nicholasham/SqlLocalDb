@@ -31,7 +31,7 @@ var buildinfo = {};
 buildinfo.configuration = 'Release';
 buildinfo.number = process.env.BUILD_NUMBER || 0;
 buildinfo.packageVersion = '1.0.0'
-buildinfo.version = '1.0.0' + '.' + buildinfo.number;
+buildinfo.version = '1.0.1' + '.' + buildinfo.number;
 
 var nuget = new Nuget({
     nugetPath: paths.nugetExeFile,
