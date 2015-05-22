@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Reflection;
 using Microsoft.SqlServer.Dac;
 
@@ -30,7 +31,7 @@ namespace SqlLocalDb.Dac
         /// <param name="embeddedPackageFileName"></param>
         public static void DeployDacpac(this LocalDatabase database, Assembly assembly, string embeddedPackageFileName)
         {
-            var packageFilePath = Path.Combine(Path.GetTempPath(), embeddedPackageFileName);
+            var packageFilePath = Path.Combine(Path.GetTempPath(), string.Format("{0}.dacpac", Guid.NewGuid()));
             var packageFile = assembly.GetResource(embeddedPackageFileName).SaveToDisk(packageFilePath);
 
             try
