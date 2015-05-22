@@ -62,7 +62,9 @@ namespace SqlLocalDb
                 Attach();
             }
 
-            return new SqlConnection(ConnectionString);
+            var connection = new SqlConnection(ConnectionString);
+            connection.Open();
+            return connection;
         }
 
         public bool IsAttached()

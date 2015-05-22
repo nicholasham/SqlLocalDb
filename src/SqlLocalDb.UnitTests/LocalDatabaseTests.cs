@@ -31,7 +31,7 @@ namespace SqlLocalDb.UnitTests
         public void GetConnection_ShouldAttach()
         {
             database = new LocalDatabase();
-            database.GetConnection().Open();
+            database.GetConnection();
             database.IsAttached().ShouldBeTrue();
 
         }
@@ -40,7 +40,7 @@ namespace SqlLocalDb.UnitTests
         public void Dispose_ShouldDetachAndDeleteFiles()
         {
             database = new LocalDatabase();
-            database.GetConnection().Open();
+            database.GetConnection();
 
             database.Dispose();
             

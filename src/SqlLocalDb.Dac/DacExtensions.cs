@@ -1,22 +1,45 @@
-﻿using Microsoft.SqlServer.Dac;
+﻿using System.IO;
+using System.Reflection;
+using Microsoft.SqlServer.Dac;
 
 namespace SqlLocalDb.Dac
 {
     public static class DacExtensions
     {
         /// <summary>
-        /// Deploys a Dac package into a local database
+        ///     Deploys a Dacpac package into a local database
         /// </summary>
         /// <param name="database"></param>
-        /// <param name="packagePath"></param>
+        /// <param name="packageFilePath"></param>
         /// <param name="deployOptions"></param>
-        public static void DeployDac(this LocalDatabase database, string packagePath, DacDeployOptions deployOptions = null)
+        public static void DeployDacpac(this LocalDatabase database, string packageFilePath, DacDeployOptions deployOptions = null)
         {
             var dacServices = new DacServices(database.ConnectionString);
-            
-            using (var package = DacPackage.Load(packagePath))
+
+            using (var package = DacPackage.Load(packageFilePath))
             {
                 dacServices.Deploy(package, database.DatabaseName, true, deployOptions);
+            }
+        }
+
+        /// <summary>
+        ///     Deploys a dacpac package into a local database. The package is loaded from an assembly resource
+        /// </summary>
+        /// <param name="database"></param>
+        /// <param name="assembly"></param>
+        /// <param name="embeddedPackageFileName"></param>
+        public static void DeployDacpac(this LocalDatabase database, Assembly assembly, string embeddedPackageFileName)
+        {
+            var packageFilePath = Path.Combine(Path.GetTempPath(), embeddedPackageFileName);
+            var packageFile = assembly.GetResource(embeddedPackageFileName).SaveToDisk(packageFilePath);
+
+            try
+            {
+                database.DeployDacpac(packageFile.FullName);
+            }
+            finally
+            {
+                File.Delete(packageFile.FullName);
             }
         }
     }

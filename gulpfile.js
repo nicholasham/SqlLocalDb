@@ -30,8 +30,8 @@ paths.projectLicenceUrl = '';
 var buildinfo = {};
 buildinfo.configuration = 'Release';
 buildinfo.number = process.env.BUILD_NUMBER || 0;
-buildinfo.packageVersion = '1.0.0'
-buildinfo.version = '1.0.1' + '.' + buildinfo.number;
+buildinfo.packageVersion = '1.0.2'
+buildinfo.version = buildinfo.packageVersion + '.' + buildinfo.number;
 
 var nuget = new Nuget({
     nugetPath: paths.nugetExeFile,
@@ -45,7 +45,7 @@ var nuget = new Nuget({
 gulp.task('clean', function (done) {
 
     del([paths.artifactsDirectory, paths.nugetPackagesDirectory], function (err, paths) {
-        console.log('Deleted files/folders:\n', paths.join('\n'));
+        console.log('Deleted files/folders:\n', path.join('\n'));
         done();
     });
 
@@ -133,7 +133,7 @@ gulp.task('xunit-test', ['build'], function () {
         }));
 });
 
-gulp.task('test', ['xunit-test']);
+gulp.task('test');
 
 gulp.task('assemblyInfo', function () {
 

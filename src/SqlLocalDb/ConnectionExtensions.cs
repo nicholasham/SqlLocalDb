@@ -9,9 +9,9 @@ namespace SqlLocalDb
         {
             using (var command = connection.CreateCommand())
             {
-                command.CommandText = string.Format(sql, parameters);
+                command.CommandText = sql.MergeParameters(parameters);
                 command.CommandType = CommandType.Text;
-                return  command.ExecuteNonQuery();
+                return command.ExecuteNonQuery();
             }
         }
 
@@ -19,7 +19,7 @@ namespace SqlLocalDb
         {
             using (var command = connection.CreateCommand())
             {
-                command.CommandText = string.Format(sql, parameters);
+                command.CommandText = sql.MergeParameters(parameters);
                 command.CommandType = CommandType.Text;
                 var value = command.ExecuteScalar();
                 return (T) value;
@@ -28,13 +28,18 @@ namespace SqlLocalDb
 
         public static void ExecuteScript(this IDbConnection connection, string scriptBlock)
         {
-            string[] splitter = { "\r\nGO\r\n" };
+            string[] splitter = {"\r\nGO\r\n"};
             var commandTexts = scriptBlock.Split(splitter, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (var commandText in commandTexts)
             {
                 connection.ExecuteSql(commandText);
             }
+        }
+
+        private static string MergeParameters(this string sql, params object[] parameters)
+        {
+            return parameters.Length == 0 ? sql : string.Format(sql, parameters);
         }
     }
 }
