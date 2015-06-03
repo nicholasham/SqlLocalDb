@@ -15,9 +15,11 @@ namespace SqlLocalDb.IntegrationTests
         {
             var packagePath = @"SampleDatabase.dacpac";
 
-            var database = new LocalDatabase();
-            database.DeployDacpac(packagePath);
+            using (var database = new LocalDatabase())
+            {
+                database.DeployDacpac(packagePath);
 
+            }
 
         } 
     }

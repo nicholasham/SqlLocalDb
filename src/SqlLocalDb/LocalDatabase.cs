@@ -26,6 +26,8 @@ namespace SqlLocalDb
                     Files.First(
                         file => file.Extension.Equals(DataFileExtension, StringComparison.InvariantCultureIgnoreCase))
                         .Name);
+
+            Attach();
         }
 
         public LocalDatabase(IFilesGenerator filesGenerator) : this(filesGenerator.Generate())
@@ -57,11 +59,6 @@ namespace SqlLocalDb
 
         public SqlConnection GetConnection()
         {
-            if (!IsAttached())
-            {
-                Attach();
-            }
-
             var connection = new SqlConnection(ConnectionString);
             connection.Open();
             return connection;
@@ -88,6 +85,15 @@ namespace SqlLocalDb
             using (var connection = new SqlConnection(attachConnectionString))
             {
                 connection.Open();
+
+                foreach (var file in Files)
+                {
+                   var oldLogicalName = connection.ExecuteScalar<string>("SELECT name FROM sys.master_files WHERE physical_name = '{0}'", file.FullName);
+                   var newLogicalName = Path.GetFileNameWithoutExtension(file.Name);
+                   connection.ExecuteSql("ALTER DATABASE [{0}] MODIFY FILE (NAME=N'{1}', NEWNAME=N'{2}')", DatabaseName, oldLogicalName, newLogicalName);
+                }
+
+
                 connection.Close();
             }
         }
@@ -100,6 +106,8 @@ namespace SqlLocalDb
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
+
+               
                 connection.ExecuteSql(@"ALTER DATABASE [{0}] SET OFFLINE WITH ROLLBACK IMMEDIATE", DatabaseName);
                 connection.ExecuteSql(@"exec sp_detach_db '{0}'", DatabaseName);
                 connection.Close();

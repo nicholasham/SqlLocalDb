@@ -21,19 +21,10 @@ namespace SqlLocalDb.UnitTests
         }
 
         [Fact]
-        public void Constructor_ShouldNotAttachOnInstantiation()
+        public void Constructor_ShouldAttachOnInstantiation()
         {
             database = new LocalDatabase();
-            database.IsAttached().ShouldBeFalse();
-        }
-
-        [Fact]
-        public void GetConnection_ShouldAttach()
-        {
-            database = new LocalDatabase();
-            database.GetConnection();
             database.IsAttached().ShouldBeTrue();
-
         }
 
         [Fact]
