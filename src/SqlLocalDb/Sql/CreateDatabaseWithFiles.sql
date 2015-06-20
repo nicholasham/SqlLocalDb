@@ -1,0 +1,5 @@
+﻿CREATE DATABASE [{0}] ON  PRIMARY 
+    ( NAME = N'{0}_Data', FILENAME = N'{1}\{0}_Data.mdf' , SIZE = 167872KB , MAXSIZE = UNLIMITED, FILEGROWTH = 16384KB )
+     LOG ON 
+    ( NAME = N'{0}_Log', FILENAME = N'{1}\{0}_Log.ldf' , SIZE = 2048KB , MAXSIZE = 2048GB , FILEGROWTH = 16384KB )
+   

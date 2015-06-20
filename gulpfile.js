@@ -30,7 +30,7 @@ paths.projectLicenceUrl = '';
 var buildinfo = {};
 buildinfo.configuration = 'Release';
 buildinfo.number = process.env.BUILD_NUMBER || 0;
-buildinfo.packageVersion = '1.0.2'
+buildinfo.packageVersion = '1.1.0'
 buildinfo.version = buildinfo.packageVersion + '.' + buildinfo.number;
 
 var nuget = new Nuget({

@@ -66,9 +66,6 @@
   <ItemGroup>
     <Compile Include="AssemblyResourceTests.cs" />
     <Compile Include="AutoFixture.cs" />
-    <Compile Include="DefaultFilesGeneratorTests.cs" />
-    <Compile Include="FilesGeneratorTests.cs" />
-    <Compile Include="LocalDatabaseTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShouldExtensions.cs" />
   </ItemGroup>

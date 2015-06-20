@@ -1,14 +1,17 @@
-﻿using System;
+﻿using Microsoft.SqlServer.Dac;
+using Should;
+using SqlLocalDb.Dac;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SqlLocalDb.Dac;
 using Xunit;
 
 namespace SqlLocalDb.IntegrationTests
 {
-    public class DatabaseSetupTest
+    public class DacExtensionsTests
     {
         [Fact]
         public void ShouldBeAbleToDeployADacPackageIntoTheLocalDatabase()
@@ -17,10 +20,8 @@ namespace SqlLocalDb.IntegrationTests
 
             using (var database = new LocalDatabase())
             {
-                database.DeployDacpac(packagePath);
-
+                database.DeployDacpac(packagePath, new DacDeployOptions());
             }
-
-        } 
+        }
     }
 }

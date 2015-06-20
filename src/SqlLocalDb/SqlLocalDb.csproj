@@ -56,28 +56,12 @@
   <ItemGroup>
     <Compile Include="AssemblyResource.cs" />
     <Compile Include="ConnectionExtensions.cs" />
-    <Compile Include="DefaultDatabaseNameGenerator.cs" />
-    <Compile Include="DefaultFilesGenerator.cs" />
-    <Compile Include="DefaultOutputDirectoryProvider.cs" />
+    <Compile Include="Database.cs" />
     <Compile Include="Disposable.cs" />
-    <Compile Include="FilesGenerator.cs" />
-    <Compile Include="IDatabaseNameGenerator.cs" />
-    <Compile Include="IFilesGenerator.cs" />
-    <Compile Include="IOutputDirectoryProvider.cs" />
     <Compile Include="LocalDatabase.cs" />
     <Compile Include="LocalDatabaseExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="TestDatabase.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="TestDatabase_log.ldf">
-      <DependentUpon>TestDatabase.mdf</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <Compile Include="ServerInstance.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.1">
@@ -98,6 +82,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="SqlLocalDb.nuspec" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Sql\CreateDatabaseNoFiles.sql" />
+    <EmbeddedResource Include="Sql\DropDatabase.sql" />
+    <EmbeddedResource Include="Sql\CreateDatabaseWithFiles.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Sql\GetDatabaseFiles.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Sql\GetDatabaseNames.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
